@@ -11,6 +11,13 @@ page_height = 297
 page_width = 210
 title_height = 12
 footer_y = 277
+line_height = 10
+
+def create_lines(pdf, start_y, end_y):
+    current_y = start_y
+    while current_y + line_height < end_y:
+        pdf.line(10, current_y + line_height, 200, current_y + line_height)
+        current_y += line_height
 
 for index, row in df.iterrows():
     pdf.add_page()
@@ -20,6 +27,9 @@ for index, row in df.iterrows():
     pdf.set_text_color(100, 100, 100)
     pdf.cell(w=0, h=title_height, txt=topic, align="L", ln=1, border=0)
     pdf.line(10, 21, 200, 21)
+    current_y = 21
+
+    create_lines(pdf, current_y, footer_y - title_height)
 
     # Footer
     pdf.ln(footer_y - title_height)
@@ -29,6 +39,8 @@ for index, row in df.iterrows():
 
     for page in range(pages - 1):
         pdf.add_page()
+
+        create_lines(pdf, 0, footer_y)
 
         # Footer
         pdf.ln(footer_y)
