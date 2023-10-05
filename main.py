@@ -19,6 +19,7 @@ def create_lines(pdf, start_y, end_y):
         pdf.line(10, current_y + line_height, 200, current_y + line_height)
         current_y += line_height
 
+
 for index, row in df.iterrows():
     pdf.add_page()
     topic = row["Topic"]
